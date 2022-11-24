@@ -13,17 +13,18 @@ class Author(models.Model):
     rate = models.IntegerField(default=0)
 
     def update_rating(self):
-        posts = Post.objects.filter(author_id=self.id)
-        comms = Comment.objects.filter(user_id=self.user_id)
+        posts = Post.objects.filter(author_id_id=self.id)
+        comms = Comment.objects.filter(user_id_id=self.user_id)
         total_rate = 0
-        for i in posts:
-            total_rate += 3*i.values("post_rate")
+        for i in range(posts.count()):
+            total_rate += 3*posts[i].post_rate
 
-            for j in Comment.objects.filter(post_id=i["id"]):
-                total_rate += j["comm_rate"]
+            o_comms = Comment.objects.filter(post_id_id=posts[i].id)
+            for j in range(o_comms.count()):
+                total_rate += o_comms[j].comm_rate
 
-        for i in comms:
-            total_rate += i["comm_rate"]
+        for i in range(comms.count()):
+            total_rate += comms[i].comm_rate
 
         self.rate = total_rate
         self.save()
@@ -51,7 +52,7 @@ class Post(models.Model):
         self.save()
 
     def preview(self):
-        return self.txt[0:124:0]+'...'
+        return self.txt[0:124:1]+'...'
 
 
 class Comment(models.Model):
