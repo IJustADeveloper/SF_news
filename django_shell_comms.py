@@ -16,12 +16,13 @@ Post.objects.create(author_id_id=1, type='P', title="Типы данных в SQ
 Post.objects.create(author_id_id=1, type='P', title="Фреймворки на python", txt='Есть 2 стула: Flask и Django.')
 Post.objects.create(author_id_id=2, type='N', title="Изобретение новой вакцины", txt='Новая вакцина была изобретена британскими учеными.')
 
-PostCategory.objects.create(post_id_id=1,category_id_id=2)
-PostCategory.objects.create(post_id_id=1,category_id_id=4)
-PostCategory.objects.create(post_id_id=2,category_id_id=2)
-PostCategory.objects.create(post_id_id=2,category_id_id=4)
-PostCategory.objects.create(post_id_id=3,category_id_id=1)
-PostCategory.objects.create(post_id_id=3,category_id_id=3)
+
+PostCategory.objects.create(post_id_id=1, category_id_id=2)
+PostCategory.objects.create(post_id_id=1, category_id_id=4)
+PostCategory.objects.create(post_id_id=2, category_id_id=2)
+PostCategory.objects.create(post_id_id=2, category_id_id=4)
+PostCategory.objects.create(post_id_id=3, category_id_id=1)
+PostCategory.objects.create(post_id_id=3, category_id_id=3)
 
 Comment.objects.create(post_id_id=1, user_id_id=2, comm_txt="топ тутор!")
 Comment.objects.create(post_id_id=1, user_id_id=1, comm_txt="спасибо")
@@ -54,8 +55,8 @@ print(User.objects.get(id=Author.objects.order_by('-rate')[:1][0].user_id_id).us
       Author.objects.order_by('-rate')[:1][0].rate)
 
 best_post = Post.objects.order_by("-post_rate")[:1][0]
-print(best_post.creation_date,' | ', User.objects.get(id=Author.objects.get(id=best_post.author_id_id).user_id_id).username,' | ',
-      best_post.post_rate,' | ', best_post.title,' | ', best_post.preview())
+print(best_post.creation_date, ' | ', User.objects.get(id=Author.objects.get(id=best_post.author_id_id).user_id_id).username, ' | ',
+      best_post.post_rate, ' | ', best_post.title, ' | ', best_post.preview())
 
 comms = Comment.objects.filter(post_id_id=best_post.id)
 for i in comms:
