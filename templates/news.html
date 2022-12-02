@@ -23,7 +23,7 @@ News
                {% for n in news %}
                    <tr>
                        <td>{{ n.title|censor}}</td>
-                       <td>{{ n.creation_date|date:'M d Y'  }}</td>
+                       <td>{{ n.creation_date|date:'d m Y'  }}</td>
                        <td>{{ n.txt|truncatechars:20|censor}}</td>
                    </tr>
                {% endfor %}
