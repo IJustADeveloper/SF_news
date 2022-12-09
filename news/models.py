@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 News = "N"
 Post = "P"
@@ -54,6 +55,8 @@ class Post(models.Model):
     def preview(self):
         return self.txt[0:124:1]+'...'
 
+    def get_absolute_url(self):
+        return reverse('news_detail', args=[str(self.id)])
 
 class Comment(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
