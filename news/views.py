@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import PostForm
@@ -28,7 +29,8 @@ class PostDetail(DetailView):
     context_object_name = 'news_one'
 
 
-class NewsCreate(CreateView):
+class NewsCreate(LoginRequiredMixin, CreateView):
+    raise_exception = True
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
@@ -39,13 +41,15 @@ class NewsCreate(CreateView):
         return super().form_valid(form)
 
 
-class NewsUpdate(UpdateView):
+class NewsUpdate(LoginRequiredMixin, UpdateView):
+    raise_exception = True
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
 
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin,DeleteView):
+    raise_exception = True
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('news_list')
@@ -68,13 +72,15 @@ class ArtList(ListView):
         return context
 
 
-class ArtCreate(CreateView):
+class ArtCreate(LoginRequiredMixin, CreateView):
+    raise_exception = True
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
 
 
-class ArtUpdate(UpdateView):
+class ArtUpdate(LoginRequiredMixin, UpdateView):
+    raise_exception = True
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
