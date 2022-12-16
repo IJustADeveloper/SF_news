@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import PostForm
@@ -29,7 +29,8 @@ class PostDetail(DetailView):
     context_object_name = 'news_one'
 
 
-class NewsCreate(LoginRequiredMixin, CreateView):
+class NewsCreate(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+    permission_required = ('news.add_post')
     raise_exception = True
     form_class = PostForm
     model = Post
@@ -41,14 +42,16 @@ class NewsCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class NewsUpdate(LoginRequiredMixin, UpdateView):
+class NewsUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
+    permission_required = ('news.change_post')
     raise_exception = True
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
 
 
-class PostDelete(LoginRequiredMixin,DeleteView):
+class PostDelete(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post')
     raise_exception = True
     model = Post
     template_name = 'post_delete.html'
@@ -72,14 +75,16 @@ class ArtList(ListView):
         return context
 
 
-class ArtCreate(LoginRequiredMixin, CreateView):
+class ArtCreate(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+    permission_required = ('news.add_post')
     raise_exception = True
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
 
 
-class ArtUpdate(LoginRequiredMixin, UpdateView):
+class ArtUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
+    permission_required = ('news.change_post')
     raise_exception = True
     form_class = PostForm
     model = Post

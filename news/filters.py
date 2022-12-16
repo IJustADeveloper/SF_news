@@ -1,6 +1,6 @@
-from django_filters import FilterSet, DateTimeFilter
+from django_filters import FilterSet, DateTimeFilter, ChoiceFilter
 from django.forms import DateTimeInput
-from .models import Post
+from .models import Post, PostCategory
 
 
 class PostFilter(FilterSet):
@@ -17,5 +17,7 @@ class PostFilter(FilterSet):
         model = Post
         fields = {
             'title': ['icontains'],
-            #'category': ['icontains'],
+            #'postcategory': ['exact', 'contains'],
         }
+
+

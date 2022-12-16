@@ -7,51 +7,57 @@ News
 {% block content %}
 <h1>Все новости</h1>
 
-    <form action="" method="get">
-       {{ filterset.form.as_p }}
-       <input type="submit" value="Найти" />
-    </form>
-
-    {% if news %}
-       <table align="center">
-           <tr>
-               <td>
-                   Заголовок
-               </td>
-               <td>
-                   Дата публикации
-               </td>
-               <td>
-                   Описание
-               </td>
-               </tr>
-
-               {% for n in news %}
+    <table align="center">
+        <tr>
+        <td>
+            {% if news %}
+               <table>
                    <tr>
-                       <td>{{ n.title|censor}}</td>
-                       <td>{{ n.creation_date|date:'d m Y'  }}</td>
-                       <td>{{ n.txt|truncatechars:20|censor}}</td>
-                   </tr>
-               {% endfor %}
+                       <td>
+                           Заголовок
+                       </td>
+                       <td>
+                           Дата публикации
+                       </td>
+                       <td>
+                           Описание
+                       </td>
+                       </tr>
 
-       </table>
-    {% else %}
-       <h2>Увы, но новостей нет(</h2>
-    {% endif %}
+                       {% for n in news %}
+                           <tr>
+                               <td><a href="{{ n.id }}">{{ n.title|censor }}</a></td>
+                               <td>{{ n.creation_date|date:'d m Y'  }}</td>
+                               <td>{{ n.txt|truncatechars:30|censor}}</td>
 
-    {# Информация о предыдущих страницах #}
+                               <td>{% if perms.news.change_post %}<a href="{{ n.id }}/update">Изменить</a>{% endif %}
+                                   {% if perms.news.delete_post %}<a href="{{ n.id }}/delete">Удалить</a>{% endif %}</td>
+                           </tr>
+                       {% endfor %}
+               </table>
+            {% else %}
+               <h2>Увы, но новостей нет(</h2>
+            {% endif %}
+        </td>
+        <td>
+            {% if perms.news.add_post %}<a href="create">Добавить пост</a>{% endif %}
+            <form action="" method="get">
+               {{ filterset.form.as_p }}
+               <input type="submit" value="Найти" />
+            </form>
+        </td>
+        </tr>
+    </table>
+
     {% if page_obj.has_previous %}
         <a href="?{% url_replace page=1 %}">1</a>
         {% if page_obj.previous_page_number != 1 %}
-            ...
             <a href="{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
         {% endif %}
     {% endif %}
 
-    {# Информация о текущей странице #}
     {{ page_obj.number }}
 
-    {# Информация о следующих страницах #}
     {% if page_obj.has_next %}
         <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
         {% if paginator.num_pages != page_obj.next_page_number %}
