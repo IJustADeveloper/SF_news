@@ -30,9 +30,23 @@ class Author(models.Model):
         self.rate = total_rate
         self.save()
 
+    def __str__(self):
+        return "Author-user_id:"+str(self.id)+"_"+str(self.user_id)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+    @staticmethod
+    def get_choices():
+        qs = Category.objects.all()
+        CHOICES = []
+        for i in qs:
+            CHOICES.append((i.id, i.name))
+        return CHOICES
+
+    def __str__(self):
+        return "Category:"+str(self.id)+"_"+self.name
 
 
 class Post(models.Model):
@@ -58,6 +72,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('news_detail', args=[str(self.id)])
 
+    def __str__(self):
+        return "Post:"+str(self.id)+"_"+self.title+"_"+self.type
+
+
 class Comment(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -73,7 +91,14 @@ class Comment(models.Model):
         self.comm_rate -= 1
         self.save()
 
+    def __str__(self):
+        return "Comment-id-post_id-user_id:"+str(self.id)+"_"+str(self.post_id)+"_"+str(self.user_id)
+
 
 class PostCategory(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "PostCategory-id-post_id-category_id:"+str(self.id)+"_"+str(self.post_id)+"_"+str(self.category_id)
+
