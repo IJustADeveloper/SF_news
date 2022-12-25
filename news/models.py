@@ -36,7 +36,8 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
-
+    subscribers = models.ManyToManyField(User)
+    
     @staticmethod
     def get_choices():
         qs = Category.objects.all()

@@ -94,7 +94,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SF_news.wsgi.application'
-
+EMAIL_HOST = 'smtp.yandex.ru' 
+EMAIL_PORT = 465 
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

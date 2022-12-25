@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
-from .forms import PostForm
+from .models import Post, Category
+from .forms import PostForm, CatSubForm
 from .filters import PostFilter
 
 
@@ -89,3 +89,14 @@ class ArtUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
+
+
+class CatSubscribe(LoginRequiredMixin, UpdateView):
+    form_class = CatSubForm
+    model = Category
+    template_name = 'cat_subscribe.html'
+
+    def form_valid(self, form):
+        cat = form.id
+        for i in cat:
+            c = Category.object

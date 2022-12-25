@@ -33,3 +33,11 @@ class PostForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class CatSubForm(forms.ModelForm):
+    id = forms.MultipleChoiceField(label='Категории', choices=Category.get_choices(),widget=forms.CheckboxSelectMultiple)
+    
+    class Meta:
+        model = Category
+        fields = ['id']
