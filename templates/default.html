@@ -25,16 +25,20 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 {% if not user.is_authenticated %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="/accounts/login">Войти</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/accounts/login">Войти</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item active">
+                    <a class="nav-link" href="/category/subscribe">Подписаться на категорию</a>
+                    </li>
                 {% endif %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="/news">Новости</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/articles">Статьи</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/news">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/articles">Статьи</a>
+                    </li>
                 {% if perms.news.add_post %}
                     <li class="nav-item">
                         <a class="nav-link" href="/news/create">Написать новость</a>

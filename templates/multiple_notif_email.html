@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Все новые посты за эту неделю новый пост</h2>
+    <p>Здравствуйте, {{ data.user_name }}, это все посты опубликованные в интересующей вас категории - "{{ data.cat_name }}", за неделю</p>
+    <p>
+        {% for i in data.posts%}
+        {{ i.title }} <a href="{{ data.href }}{{ i.id }}">ссылка на пост</a><br>
+        {% endfor %}
+    </p>
+</body>
+</html>

@@ -35,7 +35,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-
+SITE_URL = '127.0.0.1:8000'
 # Application definition
 
 INSTALLED_APPS = [
@@ -58,8 +58,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
 
-
+    'django_apscheduler'
 ]
+
 SITE_ID = 1
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
 MIDDLEWARE = [
@@ -98,7 +99,9 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465 
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = True 
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER+'@yandex.ru'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -119,7 +122,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VRIFICATION = 'mandatory'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -163,3 +167,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
